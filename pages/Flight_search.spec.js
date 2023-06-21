@@ -15,7 +15,7 @@ async SelectFlight(){
     await this.select_flight.click()
     
     await this.Continue_button.click()
-    await this.ChooseNo.click()
+    //await this.ChooseNo.click()
 
 
 }
