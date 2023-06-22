@@ -1,7 +1,7 @@
 import {test,expect} from '@playwright/test'
 import { Book_Flight} from '../pages/Book_Flight.spec'
 import { Search_Flight } from '../pages/Flight_search.spec'
-
+import { PassengerDetails } from '../pages/Passenger_details.spec'
 test('Book a Flight',async({page})=>{
 
    // await page.pause()
@@ -12,5 +12,7 @@ test('Book a Flight',async({page})=>{
     await Book_Flights.flightBooking()
     const SearchFlight= new Search_Flight(page)
     await SearchFlight.SelectFlight()
+    const PassengerDetail = new PassengerDetails(page)
+    await PassengerDetail.AddPassengerDetails()
 
 })
