@@ -42,7 +42,7 @@ test.describe('Book Flight', async () => {
 
 
         const BookingSummary1 = new Booking_Summary(page)
-        BookingSummary1.BookingSummary()
+       await BookingSummary1.BookingSummary()
 
     })
 

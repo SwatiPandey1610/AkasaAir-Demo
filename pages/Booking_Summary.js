@@ -1,35 +1,35 @@
 import { test, expect } from '@playwright/test'
-//const dataset = JSON.parse(JSON.stringify(require("../test-data/Book_Flight_Data.json")))
 const dataset = JSON.parse(JSON.stringify(require("../test-data/Passenger_Details.json")))
-export class Booking_Summary{
+export class Booking_Summary {
 
-    constructor(page){
+    constructor(page) {
 
-        this.page = page
-        this.passengername=page.locator('//p[contains(text(),"Swati Pandey")]')
-        this.passengerMobileNo= page.locator('//input[@class="MuiInputBase-input MuiInput-input Mui-disabled css-mnn31" and @value="91-9494934343"]')
-        this.passengerEmailid= page.locator('//input[@class="MuiInputBase-input MuiInput-input Mui-disabled css-mnn31" and @value="swati.pandey@xperforce.com"]')
+        this.page = page;
+        this.passengerName = page.locator('p:has-text("swati pandey")');
+        this.passengerMobileNo = page.locator('input[value="91-9494934343"]');
+        this.passengerEmailId = page.locator('input[value="swati.pandey@xperforce.com"]');
     }
 
-    async BookingSummary(){
+    async BookingSummary() {
 
-        await this.page.locator('//input[@class="MuiInputBase-input MuiInput-input Mui-disabled css-mnn31" and @value="91-9494934343"]').toBeVisible();
+        await this.page.waitForTimeout(2000);
+        await this.page.waitForLoadState('networkidle');
 
-       const element= await this.page.$('//input[@class="MuiInputBase-input MuiInput-input Mui-disabled css-mnn31" and @value="91-9494934343"]')
-       let text= (await element.innerText()).valueOf()
-       console.log('Element text:', text)
-        //let val=(await this.passengername.innerText()).valueOf()
-       // await expect.soft(val).toBe(dataset.FirstName+' '+dataset.LastName)
-      //  console.log(val)
-        /*let MobNumber=(await this.passengerMobileNo.innerText()).valueOf()
-        console.log(MobNumber)
-        expect.soft(MobNumber).toContainText(dataset.MobileNumber)
-        
-        let email=(await this.passengerEmailid.innerText()).valueOf()
-        console.log(email)
-        expect.soft(email).toContainText(dataset.Emailid)*/
-        
+        await this.page.waitForSelector('p:has-text("swati pandey")');
+        const name = await this.passengerName.textContent();
+        console.log('Name:', name);
+        await expect.soft(name).toEqual(dataset.FirstName + ' ' + dataset.LastName);
 
-     
+        await this.page.waitForSelector('input[value="91-9494934343"]');
+        const mobnum = await this.passengerMobileNo.getAttribute('value');
+        console.log('Mobile Number:', mobnum);
+        await expect.soft(mobnum).toEqual(dataset.MobileNumber);
+
+        await this.page.waitForSelector('input[value="swati.pandey@xperforce.com"]');
+        const email = await this.passengerEmailId.getAttribute('value');
+        console.log('Email:', email);
+        await expect.soft(email).toEqual(dataset.Emailid);
+
+
     }
 }

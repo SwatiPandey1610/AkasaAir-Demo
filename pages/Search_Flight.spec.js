@@ -11,7 +11,7 @@ export class Search_Flight {
 
     async SelectFlight(){
 
-    //await this.page.pause()
+    
     
     await this.select_flight.click()
     
